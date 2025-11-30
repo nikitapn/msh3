@@ -63,7 +63,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${MSH3_OUTPUT_DIR})
 
 # ls-qpack dependency
 option(MSH3_USE_EXTERNAL_LSQPACK "Use an external ls-qpack installation")
-if(MSH3_USE_EXTERNAL_LSQPACK)
+if(TARGET ls-qpack::ls-qpack)
+    # Already provided by parent project
+    message(STATUS "msh3: Using existing ls-qpack::ls-qpack target")
+elseif(MSH3_USE_EXTERNAL_LSQPACK)
     find_package(ls-qpack CONFIG REQUIRED)
 else()
     # Configure and build
@@ -75,7 +78,10 @@ endif()
 
 # msquic dependency
 option(MSH3_USE_EXTERNAL_MSQUIC "Use an external msquic installation")
-if(MSH3_USE_EXTERNAL_MSQUIC)
+if(TARGET msquic)
+    # Already provided by parent project
+    message(STATUS "msh3: Using existing msquic target")
+elseif(MSH3_USE_EXTERNAL_MSQUIC)
     find_package(msquic CONFIG REQUIRED)
 else()
     # Configure and build
